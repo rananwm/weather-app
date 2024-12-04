@@ -2,8 +2,8 @@ import {LogBox} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
-import HomeScreen from '../screens/HomeScreen';
-// import HomeScreen from '../screens//Home/Home';
+// import HomeScreen from '../screens/HomeScreen';
+import HomeScreen from '../screens//Home/Home';
 import {RootStackParamList} from '../types';
 import {ScreenName} from '../enum';
 

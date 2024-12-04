@@ -5,8 +5,10 @@ import Lottie from 'lottie-react-native';
 import {getWindDirection} from '../../../../../utils/getWindDirection';
 import {getWeatherIcon} from '../../../../../utils/getWeatherIcon';
 import Entypo from '@expo/vector-icons/Entypo';
+import {useSelector} from 'react-redux';
 
 const MainWidget = ({current}) => {
+  const currentWeather = useSelector(state => state?.weather?.currentWeather);
   return (
     <View style={styles.container}>
       <View
@@ -22,22 +24,24 @@ const MainWidget = ({current}) => {
         }}>
         <Entypo name="location-pin" size={20} color="white" />
         <Text style={{marginLeft: 5, color: 'white', fontSize: 16}}>
-          Faisalabad, Pubjab, PK
+          {currentWeather?.name}, {currentWeather?.sys?.country}
         </Text>
       </View>
 
       <View style={styles.tempRow}>
         <View>
           <Text style={styles.weatherConditionText}>
-            {current?.weather[0]?.description?.toUpperCase()}
+            {currentWeather?.weather[0]?.description?.toUpperCase()}
           </Text>
-          <Text style={styles.tempText}>{current?.temp?.toFixed(0)}°</Text>
+          <Text style={styles.tempText}>
+            {currentWeather?.main?.temp?.toFixed(0)}°
+          </Text>
         </View>
         <View>
           <Lottie
             style={styles.cloudImage}
             speed={0.8}
-            source={getWeatherIcon('01d')}
+            source={getWeatherIcon(currentWeather?.weather[0]?.icon)}
             autoPlay
             loop
           />

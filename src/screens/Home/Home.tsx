@@ -5,13 +5,17 @@ import {
   SafeAreaView,
   useWindowDimensions,
   StatusBar,
+  Alert,
 } from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Today from './Tabs/Today/Today';
 import Forecast from './Tabs/Forecast/Forecast';
 import {COLORS} from '../../constants/theme';
 import LinearGradient from 'react-native-linear-gradient';
+import * as Location from 'expo-location';
+import {useDispatch, useSelector} from 'react-redux';
+import {getCurrentWeather} from '../../redux/slices/weatherSlice';
 
 const renderScene = SceneMap({
   Today,
@@ -26,6 +30,25 @@ const renderTabBar = props => (
 );
 
 const Home = () => {
+  const currentWeather = useSelector(state => state.weather.currentWeather);
+  const dispatch = useDispatch();
+  const fetchMyWeatherData = async () => {
+    (async () => {
+      let {status} = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission to access location was denied');
+        return;
+      }
+
+      Location.getCurrentPositionAsync({}).then(location => {
+        dispatch(getCurrentWeather({params: location.coords}));
+      });
+    })();
+  };
+  useEffect(() => {
+    fetchMyWeatherData();
+  }, []);
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <LinearGradient
@@ -43,7 +66,7 @@ const Home = () => {
           onIndexChange={setIndex}
           initialLayout={{width: layout.width}}
         /> */}
-        <Today />
+        {currentWeather && <Today />}
       </LinearGradient>
     </SafeAreaView>
   );

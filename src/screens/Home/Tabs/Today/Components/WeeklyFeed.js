@@ -7,14 +7,16 @@ import {isCurrentDay} from '../../../../../utils/isCurrentDay';
 import {getDateTime} from '../../../../../utils/unixParse';
 import LottieView from 'lottie-react-native';
 import {getWeatherIcon} from '../../../../../utils/getWeatherIcon';
+
 const WeeklyFeed = () => {
-  const {daily} = useSelector(state => state?.weather?.latAPIResponse);
+  const currentForecast = useSelector(state => state?.weather?.currentForecast);
+
   return (
     <View style={styles.container}>
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
-        data={daily}
+        data={currentForecast?.list}
         renderItem={({item}) => (
           <View style={styles.row}>
             <View
@@ -28,7 +30,7 @@ const WeeklyFeed = () => {
               <LottieView
                 style={styles.image}
                 speed={0.8}
-                source={getWeatherIcon('01d')}
+                source={getWeatherIcon(item?.weather[0]?.icon)}
                 autoPlay
                 loop
               />
@@ -40,10 +42,12 @@ const WeeklyFeed = () => {
                   width: 60,
                   marginTop: 10,
                 }}>
-                <Text style={styles.temp}>{item?.temp?.max?.toFixed(0)}°</Text>
+                <Text style={styles.temp}>
+                  {item?.main?.temp_max?.toFixed(0)}°
+                </Text>
                 <View style={styles.divider} />
                 <Text style={{color: 'rgba(255,255,255,0.6)'}}>
-                  {item?.temp?.min?.toFixed(0)}°
+                  {item?.main?.temp_min?.toFixed(0)}°
                 </Text>
               </View>
             </View>
@@ -67,13 +71,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 10,
-    marginHorizontal: 0,
+    marginHorizontal: 2,
   },
   card: {
-    width: 70,
-    height: 150,
+    width: 100,
+    height: 180,
     backgroundColor: 'rgba(255,255,255,0.09)',
     // borderRadius: 20,
+    marginTop: -5,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 15,
@@ -83,8 +88,8 @@ const styles = StyleSheet.create({
     color: COLORS.white,
   },
   cardActive: {
-    width: 70,
-    height: 160,
+    width: 100,
+    height: 180,
     marginTop: -5,
     backgroundColor: 'rgba(255,255,255,0.1)',
     borderWidth: 1,
@@ -100,8 +105,8 @@ const styles = StyleSheet.create({
   },
   image: {
     marginTop: 20,
-    width: 30,
-    height: 30,
+    width: 50,
+    height: 50,
   },
   temp: {
     fontSize: 15,

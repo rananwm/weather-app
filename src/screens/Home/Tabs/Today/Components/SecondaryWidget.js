@@ -8,46 +8,53 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import {getWindDirection} from '../../../../../utils/getWindDirection';
+import {useSelector} from 'react-redux';
+
 const SecondaryWidget = ({current}) => {
+  const currentWeather = useSelector(state => state?.weather?.currentWeather);
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <View style={styles.card}>
           <Text style={styles.time}>Rain Chances</Text>
           <Feather name="cloud-rain" size={30} color={COLORS.white} />
-          <Text style={styles.temp}>{current?.clouds}%</Text>
+          <Text style={styles.temp}>{currentWeather?.clouds?.all}%</Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.time}>Humidity</Text>
           <Entypo name="water" size={30} color={COLORS.white} />
-          <Text style={styles.temp}>{current?.humidity}%</Text>
+          <Text style={styles.temp}>{currentWeather?.main?.humidity}%</Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.time}>Wind</Text>
           <Feather name="wind" size={30} color={COLORS.white} />
           <Text style={styles.temp}>
-            {current?.wind_speed?.toFixed(0)} KM/h{' '}
-            {getWindDirection(current?.wind_deg)}
+            {currentWeather?.wind?.speed?.toFixed(0)} KM/h{' '}
+            {getWindDirection(currentWeather?.wind?.deg)}
           </Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.time}>Pressure</Text>
           <FontAwesome5 name="tachometer-alt" size={30} color="white" />
-          <Text style={styles.temp}>{current?.pressure}</Text>
+          <Text style={styles.temp}>{currentWeather?.main?.pressure}</Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.time}>Visibility</Text>
           <MaterialIcons name="visibility" size={30} color="white" />
-          <Text style={styles.temp}>{current?.visibility / 1000} KM</Text>
+          <Text style={styles.temp}>
+            {currentWeather?.visibility / 1000} KM
+          </Text>
         </View>
         <View style={styles.card}>
-          <Text style={styles.time}>Dew Point</Text>
+          <Text style={styles.time}>Sea Level</Text>
           <MaterialCommunityIcons
             name="sun-thermometer"
             size={30}
             color="white"
           />
-          <Text style={styles.temp}>{current?.dew_point?.toFixed(0)}</Text>
+          <Text style={styles.temp}>
+            {currentWeather?.main?.sea_level?.toFixed(0)}
+          </Text>
         </View>
       </View>
     </View>

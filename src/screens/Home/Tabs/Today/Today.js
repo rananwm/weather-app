@@ -19,10 +19,10 @@ const Today = () => {
         marginTop: 10,
         backgroundColor: 'transparent',
       }}>
-      <PrimaryWidget current={weather?.current} />
-      <SecondaryWidget current={weather?.current} />
+      <PrimaryWidget />
+      <SecondaryWidget />
       <ForeCastFeed weather={weather} />
-      <TodayForcast forecast={'daily'} />
+      {/* <TodayForcast forecast={'daily'} /> */}
     </ScrollView>
   );
 };

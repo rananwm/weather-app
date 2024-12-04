@@ -16,7 +16,10 @@ const locationsEndpoint = (params: Params): string =>
   `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${params.cityName}`;
 
 const forecastLatLongpoint = (params: Params): string =>
-  `https://api.openweathermap.org/data/2.5/weather?lat=${params.latitude}&lon=${params.longitude}&appid=${apiKey}`;
+  `https://api.openweathermap.org/data/2.5/weather?lat=${params.latitude}&lon=${params.longitude}&appid=${apiKey}&units=metric`;
+
+const getDailyForecast = (params: Params): string =>
+  `https://api.openweathermap.org/data/2.5/forecast?lat=${params.latitude}&lon=${params.longitude}&appid=${apiKey}&units=metric`;
 
 const apiCall = async <T>(endpoint: string): Promise<T> => {
   console.log(endpoint);
@@ -48,4 +51,21 @@ export const fetchWeatherByLatLong = (params: Params) => {
 export const fetchLocations = (params: Params) => {
   let locationsUrl = locationsEndpoint(params);
   return apiCall<any>(locationsUrl); // Using 'any' due to undefined response structure
+};
+
+export const fetchDailyForecast = (params: Params) => {
+  let dailyForecastUrl = getDailyForecast(params);
+  return apiCall<any>(dailyForecastUrl);
+};
+
+export const getWeatherAndForecast = async (params: Params) => {
+  const [weather, forecast] = await Promise.all([
+    fetchWeatherByLatLong(params),
+    fetchDailyForecast(params),
+  ]);
+
+  return {
+    weather,
+    forecast,
+  };
 };

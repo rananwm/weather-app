@@ -10,13 +10,14 @@ import LottieView from 'lottie-react-native';
 import {getWeatherIcon} from '../../../../../utils/getWeatherIcon';
 
 const TodayFeed = ({daily}) => {
-  const {hourly} = useSelector(state => state?.weather?.latAPIResponse);
+  const currentForecast = useSelector(state => state?.weather?.currentForecast);
+  console.log('currentForecast', currentForecast);
   return (
     <View style={styles.container}>
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
-        data={hourly}
+        data={currentForecast?.list || []}
         renderItem={({item}) => {
           return (
             <View style={styles.row}>
@@ -33,12 +34,12 @@ const TodayFeed = ({daily}) => {
                 <LottieView
                   style={styles.image}
                   speed={0.8}
-                  source={getWeatherIcon('01d')}
+                  source={getWeatherIcon(item?.weather[0]?.icon)}
                   autoPlay
                   loop
                 />
 
-                <Text style={styles.temp}>{item?.temp?.toFixed(0)}°</Text>
+                <Text style={styles.temp}>{item?.main?.temp?.toFixed(0)}°</Text>
               </View>
             </View>
           );
@@ -61,10 +62,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 10,
-    marginHorizontal: 0,
+    marginHorizontal: 2,
   },
   card: {
-    width: 70,
+    width: 100,
     height: 150,
     backgroundColor: 'rgba(255,255,255,0.09)',
     // borderRadius: 20,
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   time: {
-    fontSize: 12,
+    fontSize: 14,
     color: COLORS.white,
   },
   cardActive: {
@@ -93,8 +94,8 @@ const styles = StyleSheet.create({
     color: COLORS.white,
   },
   image: {
-    width: 30,
-    height: 30,
+    width: 50,
+    height: 50,
   },
   temp: {
     fontSize: 18,
