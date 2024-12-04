@@ -7,7 +7,7 @@ interface Params {
   longitude?: number;
 }
 
-const apiKey = '98b9c614c2ce41579ce105846241603';
+const apiKey = '410127e8ad28e3071c43270b2b6492de';
 
 const forecastEndpoint = (params: Params): string =>
   `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${params.cityName}&days=7&aqi=yes&alerts=yes`;
@@ -16,7 +16,7 @@ const locationsEndpoint = (params: Params): string =>
   `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${params.cityName}`;
 
 const forecastLatLongpoint = (params: Params): string =>
-  `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${params.latitude},${params.longitude}&days=7&aqi=yes&alerts=yes`;
+  `https://api.openweathermap.org/data/2.5/weather?lat=${params.latitude}&lon=${params.longitude}&appid=${apiKey}`;
 
 const apiCall = async <T>(endpoint: string): Promise<T> => {
   console.log(endpoint);
@@ -27,9 +27,10 @@ const apiCall = async <T>(endpoint: string): Promise<T> => {
 
   try {
     const response = await axios.request<T>(options);
+    console.log('DATA', response?.data);
     return response.data;
   } catch (error) {
-    console.log('error: ', error);
+    console.log('error: ', error.response.data);
     return {} as T;
   }
 };

@@ -62,6 +62,7 @@ export default function HomeScreen() {
       }
       Location.getCurrentPositionAsync({}).then(location => {
         fetchWeatherByLatLong(location.coords).then(data => {
+          console.log('DATA', data);
           setWeather(data);
           setLoading(false);
         });
