@@ -1,33 +1,12 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  useWindowDimensions,
-  StatusBar,
-  Alert,
-} from 'react-native';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import {SafeAreaView, StatusBar, Alert} from 'react-native';
 import React, {useEffect} from 'react';
 import Today from './Tabs/Today/Today';
-import Forecast from './Tabs/Forecast/Forecast';
 import {COLORS} from '../../constants/theme';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Location from 'expo-location';
 import {useDispatch, useSelector} from 'react-redux';
 import {getCurrentWeather} from '../../redux/slices/weatherSlice';
-
-const renderScene = SceneMap({
-  Today,
-  Forecast,
-});
-const renderTabBar = props => (
-  <TabBar
-    {...props}
-    indicatorStyle={{backgroundColor: 'white'}}
-    style={{backgroundColor: 'rgba(0,0,0,0)'}}
-  />
-);
+import Header from '@/components/Header';
 
 const Home = () => {
   const currentWeather = useSelector(state => state.weather.currentWeather);
@@ -58,14 +37,8 @@ const Home = () => {
         end={{x: 0.9, y: 1.3}}
         locations={[0, 0.6, 1.0]}>
         <StatusBar backgroundColor={COLORS.gradientStart} />
-        {/* <Header city={`${city?.name}, ${city?.country}`} /> */}
-        {/* <TabView
-          navigationState={{index, routes}}
-          renderTabBar={renderTabBar}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={{width: layout.width}}
-        /> */}
+        {/* Header */}
+        <Header />
         {currentWeather && <Today />}
       </LinearGradient>
     </SafeAreaView>
@@ -73,5 +46,3 @@ const Home = () => {
 };
 
 export default Home;
-
-const styles = StyleSheet.create({});

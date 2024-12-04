@@ -13,7 +13,7 @@ const forecastEndpoint = (params: Params): string =>
   `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${params.cityName}&days=7&aqi=yes&alerts=yes`;
 
 const locationsEndpoint = (params: Params): string =>
-  `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${params.cityName}`;
+  `https://api.weatherapi.com/v1/search.json?key=98b9c614c2ce41579ce105846241603&q=${params.cityName}`;
 
 const forecastLatLongpoint = (params: Params): string =>
   `https://api.openweathermap.org/data/2.5/weather?lat=${params.latitude}&lon=${params.longitude}&appid=${apiKey}&units=metric`;

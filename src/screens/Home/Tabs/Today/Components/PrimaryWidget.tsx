@@ -23,7 +23,7 @@ const MainWidget = ({current}) => {
           justifyContent: 'center',
         }}>
         <Entypo name="location-pin" size={20} color="white" />
-        <Text style={{marginLeft: 5, color: 'white', fontSize: 16}}>
+        <Text style={{marginLeft: 5, color: 'white', fontSize: 18}}>
           {currentWeather?.name}, {currentWeather?.sys?.country}
         </Text>
       </View>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     padding: 15,
     // marginHorizontal: 20,
-    marginTop: 50,
+    // marginTop: 50,
     alignSelf: 'center',
     borderRadius: 3,
     width: '94%',

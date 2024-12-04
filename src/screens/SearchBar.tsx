@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   activeSearchBar: {
-    backgroundColor: '#CBD5E1', // Slate color
+    backgroundColor: 'rgba(255,255,255,0.1)', // Slate color
   },
   input: {
     height: 48,
     paddingLeft: 16,
     fontSize: 18,
-    paddingBottom: 4,
+
     flex: 1,
     color: 'white',
   },
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 50,
     margin: 4,
-    backgroundColor: '#4B5563', // Slate color
+    backgroundColor: 'rgba(255,255,255,0.1)', // Slate color
   },
 });
 
