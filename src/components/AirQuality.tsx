@@ -44,7 +44,7 @@ export default AirQuality;
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
-    marginHorizontal: 8,
+    marginHorizontal: 12,
     height: 170,
     backgroundColor: 'rgba(255,255,255,0.09)',
     borderRadius: 3,

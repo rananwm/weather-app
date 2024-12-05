@@ -9,7 +9,6 @@ import {getWeatherIcon} from '@/utils/getWeatherIcon';
 
 const TodayFeed = () => {
   const currentForecast = useSelector(state => state?.weather?.currentForecast);
-  console.log('currentForecast', currentForecast);
   return (
     <View style={styles.container}>
       <FlatList

@@ -1,4 +1,11 @@
-import {SafeAreaView, StatusBar, Alert} from 'react-native';
+import {
+  SafeAreaView,
+  StatusBar,
+  Alert,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect} from 'react';
 
 import {COLORS} from '../../constants/theme';
@@ -6,11 +13,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import * as Location from 'expo-location';
 import {useDispatch, useSelector} from 'react-redux';
 import {getCurrentWeather} from '../../redux/slices/weatherSlice';
-import Header from '@/components/Header';
-import Today from '@/components/Today';
+import SecondaryWidget from '@/components/SecondaryWidget';
+import AirQuality from '@/components/AirQuality';
+import WeatherMap from '@/components/WeatherMap';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import {useNavigation} from '@react-navigation/native';
 
 const WeatherDetails = () => {
-  const currentWeather = useSelector(state => state.weather.currentWeather);
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const fetchMyWeatherData = async () => {
     (async () => {
@@ -38,9 +48,31 @@ const WeatherDetails = () => {
         end={{x: 0.9, y: 1.3}}
         locations={[0, 0.6, 1.0]}>
         <StatusBar backgroundColor={COLORS.gradientStart} />
-        {/* Header */}
-        <Header />
-        {currentWeather && <Today />}
+        {/* Design Header */}
+        <View
+          style={{
+            marginTop: 20,
+            paddingHorizontal: 15,
+            // backgroundColor: 'red',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="chevron-back" size={30} color="white" />
+          </TouchableOpacity>
+          <View>
+            <Text style={{fontSize: 18, color: 'white', fontWeight: 'bold'}}>
+              Weather Details
+            </Text>
+          </View>
+
+          <View></View>
+        </View>
+
+        <AirQuality />
+        <WeatherMap />
+        <SecondaryWidget />
       </LinearGradient>
     </SafeAreaView>
   );

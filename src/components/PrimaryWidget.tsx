@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {COLORS} from '@/constants';
 import Lottie from 'lottie-react-native';
@@ -6,10 +6,12 @@ import {getWeatherIcon} from '@/utils/getWeatherIcon';
 import Entypo from '@expo/vector-icons/Entypo';
 import {useSelector} from 'react-redux';
 import {showTemperature} from '@/utils/convertUnit';
+import {useNavigation} from '@react-navigation/native';
 
 const MainWidget = () => {
   const currentWeather = useSelector(state => state?.weather?.currentWeather);
   const temperatureUnit = useSelector(state => state?.weather?.temperatureUnit);
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View
@@ -42,6 +44,7 @@ const MainWidget = () => {
             °
           </Text>
         </View>
+
         <View>
           <Lottie
             style={styles.cloudImage}
@@ -52,6 +55,18 @@ const MainWidget = () => {
           />
         </View>
       </View>
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'rgba(0,0,0,0.1)',
+          padding: 10,
+          paddingHorizontal: 20,
+          borderRadius: 5,
+        }}
+        onPress={() => {
+          navigation.navigate('WeatherDetails');
+        }}>
+        <Text style={{color: 'white'}}>More Details</Text>
+      </TouchableOpacity>
     </View>
   );
 };
