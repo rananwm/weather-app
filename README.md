@@ -57,3 +57,59 @@ First, clone the repository to your local machine:
 git clone https://github.com/rananwm/weather-app.git
 cd weather-app
 ```
+
+### 2. Install Node Modules
+
+Now, install the required dependencies for the app by running the following command:
+
+```bash
+npm install
+```
+
+or, if you prefer Yarn:
+
+```bash
+ yarn install
+```
+
+### 3. Start the Metro Bundler
+
+Now, install the required dependencies for the app by running the following command:
+
+```bash
+npx react-native start
+```
+
+### 4. Run the App on an Emulator or Device
+
+For iOS:
+If you're on macOS and have Xcode installed, you can run the app on the iOS simulator with the following command:
+
+```bash
+npx react-native run-ios
+```
+
+For Android:
+Make sure you have an Android emulator running or a device connected via USB. Then, run the app using:
+
+```bash
+npx react-native run-android
+```
+
+## Debugging 🔧
+
+    To open the developer menu, use one of the following:
+
+- iOS: Press Cmd + D or shake the device.
+- Android: Press Cmd + M (on macOS) or Ctrl + M (on Windows/Linux) or shake the device. and wind
+
+---
+
+## To Be Developed 🚀
+
+To open the developer menu, use one of the following:
+
+- 🗺️ Weather Maps: Interactive maps showcasing weather patterns worldwide.
+- 🌫️ Air Quality Index (AQI): Real-time air quality data for cities across the globe.
+
+---
