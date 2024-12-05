@@ -1,7 +1,5 @@
-import { ImageBackground, StyleSheet, Image } from 'react-native';
+import {StyleSheet, Image} from 'react-native';
 import React from 'react';
-import { COLORS } from '../../../../../constants';
-import * as Progress from 'react-native-progress';
 
 const WeatherMap = () => {
   return (

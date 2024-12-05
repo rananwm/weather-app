@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    borderRadius: 50,
+    borderRadius: 5,
   },
   androidMargin: {
     marginTop: 16,
   },
   activeSearchBar: {
-    backgroundColor: 'rgba(255,255,255,0.1)', // Slate color
+    backgroundColor: 'rgba(255,255,255,0.1)',
   },
   input: {
     height: 48,

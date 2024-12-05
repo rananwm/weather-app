@@ -30,7 +30,6 @@ const apiCall = async <T>(endpoint: string): Promise<T> => {
 
   try {
     const response = await axios.request<T>(options);
-    console.log('DATA', response?.data);
     return response.data;
   } catch (error) {
     console.log('error: ', error.response.data);

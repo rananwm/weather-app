@@ -1,15 +1,13 @@
-import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
+import {StyleSheet, Text, View, FlatList} from 'react-native';
 import React from 'react';
-import {COLORS} from '../../../../../constants';
-import {cloudImage} from '../../../../../constants/images';
-import moment from 'moment';
+import {COLORS} from '@/constants';
 import {useSelector} from 'react-redux';
-import {getDateTime} from '../../../../../utils/unixParse';
-import {isCurrentHour} from '../../../../../utils/isCurrentHour';
+import {getDateTime} from '@/utils/unixParse';
+import {isCurrentHour} from '@/utils/isCurrentHour';
 import LottieView from 'lottie-react-native';
-import {getWeatherIcon} from '../../../../../utils/getWeatherIcon';
+import {getWeatherIcon} from '@/utils/getWeatherIcon';
 
-const TodayFeed = ({daily}) => {
+const TodayFeed = () => {
   const currentForecast = useSelector(state => state?.weather?.currentForecast);
   console.log('currentForecast', currentForecast);
   return (
@@ -84,7 +82,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.1)',
     borderWidth: 1,
     borderColor: COLORS.white,
-    // borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 15,

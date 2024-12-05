@@ -1,10 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {
-  fetchWeatherForecast,
-  fetchWeatherByLatLong,
-  fetchLocations,
-  getWeatherAndForecast,
-} from '@/api/weather'; // Import new API functions
+import {getWeatherAndForecast} from '@/api/weather'; // Import new API functions
 
 interface WeatherState {
   currentCoordinates: {latitude: number; longitude: number} | null;
@@ -12,6 +7,7 @@ interface WeatherState {
   currentForecast: any;
   fetching: boolean;
   error: string | null;
+  temperatureUnit: string | null;
 }
 interface LocationParams {
   latitude?: number;
@@ -19,6 +15,7 @@ interface LocationParams {
 }
 const initialState: WeatherState = {
   currentCoordinates: null,
+  temperatureUnit: 'metric',
   currentWeather: null,
   currentForecast: null,
   fetching: false,
@@ -28,9 +25,8 @@ const initialState: WeatherState = {
 // Thunks
 export const getCurrentWeather = createAsyncThunk(
   'weather/getCurrentWeather',
-  async ({params}: {params: LocationParams}, {dispatch, getState}) => {
+  async ({params}: {params: LocationParams}, {dispatch}) => {
     try {
-      console.log('CALLED', params);
       // Fetch the current weather by latitude and longitude
       const weatherResponse = await getWeatherAndForecast({
         latitude: params.latitude,
@@ -43,7 +39,6 @@ export const getCurrentWeather = createAsyncThunk(
           longitude: params.longitude,
         }),
       );
-      console.log('weatherResponse', weatherResponse);
       dispatch(updateCurrentWeather(weatherResponse.weather || {}));
       dispatch(updateCurrentForecast(weatherResponse.forecast || {}));
     } catch (err) {
@@ -69,6 +64,9 @@ const weatherSlice = createSlice({
     updateCurrentForecast(state, action) {
       state.currentForecast = action.payload;
     },
+    updateTemperatureUnit(state, action) {
+      state.temperatureUnit = action.payload;
+    },
   },
   extraReducers: builder => {
     builder
@@ -93,6 +91,7 @@ export const {
   updateCurrentWeather,
   updateError,
   updateCurrentForecast,
+  updateTemperatureUnit,
 } = weatherSlice.actions;
 
 export default weatherSlice.reducer;

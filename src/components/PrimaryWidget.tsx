@@ -1,14 +1,15 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {COLORS} from '../../../../../constants';
+import {COLORS} from '@/constants';
 import Lottie from 'lottie-react-native';
-import {getWindDirection} from '../../../../../utils/getWindDirection';
-import {getWeatherIcon} from '../../../../../utils/getWeatherIcon';
+import {getWeatherIcon} from '@/utils/getWeatherIcon';
 import Entypo from '@expo/vector-icons/Entypo';
 import {useSelector} from 'react-redux';
+import {showTemperature} from '@/utils/convertUnit';
 
-const MainWidget = ({current}) => {
+const MainWidget = () => {
   const currentWeather = useSelector(state => state?.weather?.currentWeather);
+  const temperatureUnit = useSelector(state => state?.weather?.temperatureUnit);
   return (
     <View style={styles.container}>
       <View
@@ -34,7 +35,11 @@ const MainWidget = ({current}) => {
             {currentWeather?.weather[0]?.description?.toUpperCase()}
           </Text>
           <Text style={styles.tempText}>
-            {currentWeather?.main?.temp?.toFixed(0)}°
+            {showTemperature(
+              currentWeather?.main?.temp?.toFixed(0),
+              temperatureUnit,
+            )}
+            °
           </Text>
         </View>
         <View>

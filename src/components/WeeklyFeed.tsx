@@ -1,15 +1,15 @@
-import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
+import {StyleSheet, Text, View, FlatList} from 'react-native';
 import React from 'react';
-import {COLORS} from '../../../../../constants';
-import {cloudImage} from '../../../../../constants/images';
+import {COLORS} from '@/constants';
 import {useSelector} from 'react-redux';
-import {isCurrentDay} from '../../../../../utils/isCurrentDay';
-import {getDateTime} from '../../../../../utils/unixParse';
+import {getDateTime, getTime} from '@/utils/unixParse';
 import LottieView from 'lottie-react-native';
-import {getWeatherIcon} from '../../../../../utils/getWeatherIcon';
+import {getWeatherIcon} from '@/utils/getWeatherIcon';
+import {showTemperature} from '@/utils/convertUnit';
 
 const WeeklyFeed = () => {
   const currentForecast = useSelector(state => state?.weather?.currentForecast);
+  const temperatureUnit = useSelector(state => state?.weather?.temperatureUnit);
 
   return (
     <View style={styles.container}>
@@ -19,13 +19,12 @@ const WeeklyFeed = () => {
         data={currentForecast?.list}
         renderItem={({item}) => (
           <View style={styles.row}>
-            <View
-              style={isCurrentDay(item?.dt) ? styles.cardActive : styles.card}>
-              <Text
-                style={
-                  isCurrentDay(item?.dt) ? styles.timeActive : styles.time
-                }>
+            <View style={styles.card}>
+              <Text style={[styles.time, {fontSize: 12, marginTop: -4}]}>
                 {getDateTime(item?.dt, 'dddd')}
+              </Text>
+              <Text style={[styles.time, {fontSize: 14, fontWeight: 'bold'}]}>
+                {getTime(item?.dt, 'h A')}
               </Text>
               <LottieView
                 style={styles.image}
@@ -43,11 +42,19 @@ const WeeklyFeed = () => {
                   marginTop: 10,
                 }}>
                 <Text style={styles.temp}>
-                  {item?.main?.temp_max?.toFixed(0)}°
+                  {showTemperature(
+                    item?.main?.temp_max?.toFixed(0),
+                    temperatureUnit,
+                  )}
+                  °
                 </Text>
                 <View style={styles.divider} />
                 <Text style={{color: 'rgba(255,255,255,0.6)'}}>
-                  {item?.main?.temp_min?.toFixed(0)}°
+                  {showTemperature(
+                    item?.main?.temp_min?.toFixed(0),
+                    temperatureUnit,
+                  )}
+                  °
                 </Text>
               </View>
             </View>
@@ -74,10 +81,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
   card: {
-    width: 100,
-    height: 180,
+    width: 125,
+    height: 155,
     backgroundColor: 'rgba(255,255,255,0.09)',
-    // borderRadius: 20,
+    borderRadius: 3,
     marginTop: -5,
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -87,35 +94,25 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: COLORS.white,
   },
-  cardActive: {
-    width: 100,
-    height: 180,
-    marginTop: -5,
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    borderWidth: 1,
-    borderColor: COLORS.white,
-    // borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 15,
-  },
+
   timeActive: {
     fontSize: 12,
     color: COLORS.white,
   },
   image: {
-    marginTop: 20,
-    width: 50,
-    height: 50,
+    marginTop: 10,
+    width: 30,
+    height: 30,
   },
   temp: {
     fontSize: 15,
+    marginTop: -2,
     color: COLORS.white,
     fontWeight: 'bold',
     marginLeft: 3,
   },
   divider: {
-    height: 16,
+    height: 14,
     marginLeft: -2,
     width: 0.5,
     backgroundColor: 'rgba(255,255,255,0.6)',

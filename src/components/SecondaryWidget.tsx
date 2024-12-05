@@ -1,16 +1,15 @@
-import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {COLORS} from '../../../../../constants';
-import {cloudImage} from '../../../../../constants/images';
+import {COLORS} from '@/constants';
 import Feather from '@expo/vector-icons/Feather';
 import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import {getWindDirection} from '../../../../../utils/getWindDirection';
+import {getWindDirection} from '@/utils/getWindDirection';
 import {useSelector} from 'react-redux';
 
-const SecondaryWidget = ({current}) => {
+const SecondaryWidget = () => {
   const currentWeather = useSelector(state => state?.weather?.currentWeather);
   return (
     <View style={styles.container}>
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
   card: {
     margin: 5,
     width: '30%',
-    height: 100,
+    height: 120,
     backgroundColor: 'rgba(255,255,255,0.09)',
     borderRadius: 3,
     alignItems: 'center',
@@ -104,7 +103,6 @@ const styles = StyleSheet.create({
   temp: {
     fontSize: 18,
     color: COLORS.white,
-    // fontWeight: 'bold',
     marginLeft: 3,
   },
 });

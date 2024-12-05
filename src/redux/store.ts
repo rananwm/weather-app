@@ -7,11 +7,10 @@ import recentSlice from './slices/recentSlice';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['recentSearches'],
 };
 
 const rootReducer = combineReducers({
-  weather: weatherSlice,
+  weather: persistReducer(persistConfig, weatherSlice),
   recent: persistReducer(persistConfig, recentSlice),
 });
 

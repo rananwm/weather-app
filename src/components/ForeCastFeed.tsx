@@ -2,7 +2,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import WeeklyFeed from './WeeklyFeed';
 
-const ForeCastFeed = ({weather}) => {
+const ForeCastFeed = () => {
   return (
     <View style={styles.container}>
       <View style={styles.tab}>
@@ -18,7 +18,6 @@ export default ForeCastFeed;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: 'red',
     marginHorizontal: 12,
   },
   tab: {

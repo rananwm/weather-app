@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     width: '100%',
-    zIndex: 10,
+    zIndex: 999,
     top: 64, // Adjusted for top spacing (16px)
     backgroundColor: '#CBD5E1', // Slate color
     borderRadius: 24,

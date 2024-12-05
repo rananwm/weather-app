@@ -1,10 +1,10 @@
 import {StyleSheet, View} from 'react-native';
 import React, {useCallback, useState} from 'react';
-import SearchBar from '@/screens/SearchBar';
-import LocationsList from '@/screens/LocationsList';
-import {LocationData, WeatherData} from '@/types';
+import SearchBar from './SearchBar';
+import LocationsList from './LocationsList';
+import {LocationData} from '@/types';
 import {debounce} from 'lodash';
-import {fetchLocations, fetchWeatherForecast} from '@/api/weather';
+import {fetchLocations} from '@/api/weather';
 import {useDispatch} from 'react-redux';
 import {getCurrentWeather} from '@/redux/slices/weatherSlice';
 
@@ -12,8 +12,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [locations, setLocations] = useState<LocationData[]>([]);
-  const [weather, setWeather] = useState<WeatherData>({});
-  const [loading, setLoading] = useState(true);
 
   const handleSearch = (value: string) => {
     if (value.length > 2) {
@@ -26,8 +24,7 @@ const Header = () => {
     console.log(locations);
     setLocations([]);
     setShowSearchBar(false);
-    setLoading(true);
-    console.log('Location:', loc);
+
     dispatch(
       getCurrentWeather({
         params: {
@@ -56,7 +53,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   searchBarContainer: {
-    marginHorizontal: 16,
+    marginHorizontal: 12,
     // marginTop: 20,
     position: 'relative',
     zIndex: 10,

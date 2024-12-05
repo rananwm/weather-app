@@ -1,4 +1,4 @@
-import {SafeAreaView, StatusBar, Alert, ScrollView} from 'react-native';
+import {SafeAreaView, StatusBar, Alert} from 'react-native';
 import React, {useEffect} from 'react';
 
 import {COLORS} from '../../constants/theme';
@@ -9,12 +9,8 @@ import {getCurrentWeather} from '../../redux/slices/weatherSlice';
 import Header from '@/components/Header';
 import Today from '@/components/Today';
 
-const Home = () => {
+const WeatherDetails = () => {
   const currentWeather = useSelector(state => state.weather.currentWeather);
-  const currentCoordinates = useSelector(
-    state => state.weather.currentCoordinates,
-  );
-  console.log('currentCoordinates', currentCoordinates);
   const dispatch = useDispatch();
   const fetchMyWeatherData = async () => {
     (async () => {
@@ -25,11 +21,7 @@ const Home = () => {
       }
 
       Location.getCurrentPositionAsync({}).then(location => {
-        if (currentCoordinates) {
-          dispatch(getCurrentWeather({params: currentCoordinates}));
-        } else {
-          dispatch(getCurrentWeather({params: location.coords}));
-        }
+        dispatch(getCurrentWeather({params: location.coords}));
       });
     })();
   };
@@ -38,7 +30,7 @@ const Home = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1, zIndex: 99}}>
+    <SafeAreaView style={{flex: 1}}>
       <LinearGradient
         style={{flex: 1}}
         colors={[COLORS.gradientStart, COLORS.gradientMid, COLORS.gradientEnd]}
@@ -48,10 +40,10 @@ const Home = () => {
         <StatusBar backgroundColor={COLORS.gradientStart} />
         {/* Header */}
         <Header />
-        <ScrollView>{currentWeather && <Today />}</ScrollView>
+        {currentWeather && <Today />}
       </LinearGradient>
     </SafeAreaView>
   );
 };
 
-export default Home;
+export default WeatherDetails;
